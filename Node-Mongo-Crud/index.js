@@ -22,7 +22,9 @@ client.connect(err => {
         console.log(product);
         productCollection.insertOne(product)
             .then(result => {
-                res.send('success')
+                // res.send('success')
+                res.redirect('/')
+
             })
     })
 
@@ -48,6 +50,7 @@ client.connect(err => {
             })
             .then(result => {
                 console.log(result);
+                res.send(result.modifiedCount > 0)
             })
 
     })
@@ -60,6 +63,7 @@ client.connect(err => {
         })
             .then((result) => {
                 console.log(result);
+                res.send(result.deletedCount > 0)
             })
     })
 
