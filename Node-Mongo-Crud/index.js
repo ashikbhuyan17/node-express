@@ -40,6 +40,18 @@ client.connect(err => {
             })
     })
 
+    app.patch('/update/:id', (req, res) => {
+        productCollection.updateOne(
+            { _id: ObjectId(req.params.id) },
+            {
+                $set: { price: req.body.price, quantity: req.body.quantity }
+            })
+            .then(result => {
+                console.log(result);
+            })
+
+    })
+
     app.delete('/delete/:id', (req, res) => {
         console.log(req.params.id);
         productCollection.deleteOne({

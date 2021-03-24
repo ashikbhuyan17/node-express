@@ -41,6 +41,8 @@
 
         loadAllProducts()
 
+
+
         function deleteProduct(id) {
             console.log("delete")
             fetch(`/delete/${id}`, {
@@ -60,12 +62,29 @@
                     const update = document.getElementById('update')
                     update.innerHTML = `
                     <h3> update :  <br>
-                        Name : <input type="text" id="name" value="${data.name}" > <br>
+                        
                         price : <input type="text" id="price" value="${data.price}">  <br>
                         quantity: <input type="text" id="quantity"value="${data.quantity}" >  <br>
-                        <button type="submit">Update</button>
+                        <button onclick ="updateProduct('${data._id}')" >Submit</button>
                     `;
                 })
+        }
+
+        function updateProduct(id) {
+            console.log(id)
+            const price = document.getElementById('price').value
+            const quantity = document.getElementById('quantity').value
+            const product = { id, price, quantity }
+            fetch(`update/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("updated")
+                })
+
         }
 
 
