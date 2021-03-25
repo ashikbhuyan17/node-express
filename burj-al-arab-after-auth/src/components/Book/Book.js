@@ -32,8 +32,22 @@ const Book = () => {
 
     const handleBooking = () => {
         console.log("success booking");
-        console.log(loggedInUser, selectedDate);
+        // console.log(loggedInUser, selectedDate);
+        const newBooking = { ...loggedInUser, ...selectedDate }
+        console.log(newBooking);
+        fetch('http://127.0.0.1:5000/addBooking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },  //json type r data patanu hocce
+            body: JSON.stringify(newBooking)  //json e convert kore data patachi
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
     }
+
+
     return (
         <div style={{ textAlign: 'center' }}>
             <h1>Hello, {loggedInUser.name}! Let's book a {bedType} Room.</h1>
@@ -44,7 +58,7 @@ const Book = () => {
                     <KeyboardDatePicker
                         disableToolbar
                         variant="inline"
-                        format="MM/dd/yyyy"
+                        format="dd/MM/yyyy"
                         margin="normal"
                         id="check In Date"
                         label="Date picker inline"
@@ -58,7 +72,7 @@ const Book = () => {
                         margin="normal"
                         id="date-picker-dialog"
                         label="check Out Date"
-                        format="MM/dd/yyyy"
+                        format="dd/MM/yyyy"
                         value={selectedDate.checkOut}
                         onChange={handleCheckOutDate}
                         KeyboardButtonProps={{
