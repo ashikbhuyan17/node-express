@@ -1,0 +1,8 @@
+.img-div img {
+    height: 225px;
+}
+.flex {
+    margin: 20px;
+    width: 30%;
+    display: inline-block;
+}
